@@ -21,16 +21,16 @@ def get_employee_wage():
     emp_hour = 0
     emp_wage = 0
     is_present = randint(0, 2)
-    if is_present == IS_FULL_TIME:
-        emp_hour = 8
-    elif is_present == IS_PART_TIME:
-        emp_hour = 4
-    else:
-        emp_hour = 0
+    switcher = {
+        1: 8,
+        2: 4,
+        0: 0
+    }
+    emp_hour = switcher.get(is_present)
     emp_wage = emp_hour * EMP_RATE_PER_HOUR
     logger.info(emp_wage)
 
 
 if __name__ == '__main__':
-    logging.info("UC3")
+    logging.info("UC4")
     get_employee_wage()
