@@ -21,10 +21,8 @@ class EmployeeWage:
 
         """
 
-        :return:
+        :return:total_wage
         """
-        emp_hour = 0
-        emp_wage = 0
         total_hours = 0
         total_wage = 0
         logger.info("Checking presence and add wage accordingly")
@@ -50,16 +48,32 @@ class EmployeeWage:
         return total_wage
 
 
+def input_from_user():
+    try:
+        input_working_days = int(input("Enter number of Working days in a month: "))
+        logger.info("Inserted total working days")
+        input_working_hours = int(input("Enter number of Working hours in a month: "))
+        logger.info("Inserted working hours")
+        input_emp_rate = int(input("Rate per hours: "))
+        logger.info("Inserted rate per hours")
+        company = EmployeeWage(input_working_days, input_working_hours, input_emp_rate)
+        print("\nTotal wages:", company.get_employee_wage())
+
+    except Exception:
+        print("Input error") 
+        logger.error("Input Error")
+
+
 if __name__ == '__main__':
-    logging.info("UC8")
-    # company_name = input("Enter the company: ")
-    # logger.info(company_name)
-    max_working_days = int(input("Enter number of Working days in a month: "))
-    logger.info("Inserted total working days")
-    max_working_hours = int(input("Enter number of Working hours in a month: "))
-    logger.info("Inserted working hours")
-    emp_rate = int(input("Rate per hours: "))
-    logger.info("Inserted rate per hours")
-    employee1 = EmployeeWage(max_working_days, max_working_hours, emp_rate)
-    print("\nTotal wages:", employee1.get_employee_wage())
+
+    logging.info("UC9")
+    while True:
+        company_name = input("Enter the company or type (exit): ")
+        if company_name.lower() == "exit":
+            print("exited")
+            break
+        logger.info("company name below")
+        logger.info(company_name)
+        input_from_user()
+
     logger.info("program run successfully..!!")
