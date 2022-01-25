@@ -9,61 +9,51 @@ logging.basicConfig(filename="logfile.log",
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
-IS_FULL_TIME = 1
-IS_PART_TIME = 2
-company = CompanyEmployeeWage()
 
-def input_from_user():
-    """
-    taking input from user
-    :return: none
-    """
+class Companys:
+    IS_FULL_TIME = 1
+    IS_PART_TIME = 2
 
-    company.set_company_name(input("Enter the company "))
-    logger.info("company name inserted")
-    # logger.info(company.company_name)
-    company.set_num_of_working_days(int(input("Enter number of Working days in a month: ")))
-    logger.info("Inserted total working days")
-    company.set_max_hrs_in_month(int(input("Enter number of Working hours in a month: ")))
-    logger.info("Inserted working hours")
-    company.set_emp_rate_per_hour(int(input("Rate per hours: ")))
-    logger.info("Inserted rate per hours")
-    # company = CompanyEmployeeWage(company_name, input_working_days, input_working_hours, input_emp_rate)
-    # print("\nTotal wages:", CompanyEmployeeWage.get_total_wage())
-    company.set_total_wage(get_employee_wage())
-    # except Exception:
-    #     print("Input error")
-    #     logger.error("Input Error")
-    # else:
-    #     logger.info("No Error in input")
+    def __init__(self):
+        self.company = CompanyEmployeeWage()
+        self.company_dic = dict()
 
+    def input_from_user(self):
+        """
+        taking input from user
+        :return: none
+        """
 
-def get_employee_wage():
-    """
-
-    :return:total_wage
-    """
-    total_hours = 0
-    total_wage = 0
-
-    logger.info("Checking presence and add wage accordingly")
-    for i in range(company.get_num_of_working_days()):
-        logger.info("Enter in loop")
-        is_present = randint(0, 2)
-        switch = {
-            1: 8,
-            2: 4,
-            0: 0
+        self.company.set_company_name(input("Enter the company "))
+        logger.info("company name inserted")
+        logger.info(f"{self.company.company_name}")
+        self.company.set_num_of_working_days(int(input("Enter number of Working days in a month: ")))
+        logger.info("Inserted total working days")
+        self.company.set_max_hrs_in_month(int(input("Enter number of Working hours in a month: ")))
+        logger.info("Inserted working hours")
+        self.company.set_emp_rate_per_hour(int(input("Rate per hours: ")))
+        logger.info("Inserted rate per hours")
+        # company = CompanyEmployeeWage(company_name, input_working_days, input_working_hours, input_emp_rate)
+        # print("\nTotal wages:", CompanyEmployeeWage.get_total_wage())
+        self.company.set_total_wage(self.company.get_employee_wage())
+        self.company_dic[self.company.company_name] = {
+            "working_hours": self.company.get_max_hrs_in_month(),
+            "working_days": self.company.get_num_of_working_days(),
+            "rate_per_hour": self.company.get_emp_rate_per_hour(),
+            "Total_wages": self.company.get_employee_wage()
         }
-        emp_hour = switch.get(is_present)
-        total_hours = total_hours + emp_hour
-        print("day-", i, "hours-", emp_hour)
-        if total_hours > company.get_max_hrs_in_month():
-            break
+        # except Exception:
+        #     print("Input error")
+        #     logger.error("Input Error")
+        # else:
+        #     logger.info("No Error in input")
 
-        emp_wage = emp_hour * company.get_emp_rate_per_hour()
-        total_wage = total_wage + emp_wage
-    logger.info("Total wage below")
-    # logger.info(total_wage)
-    print("total wage :-", total_wage)
-    return total_wage
+    def display(self,):
+        """
+
+        :param name:company name
+        :return:company_dic 
+        """
+        logger.info(f"{self.company_dic}")
+        print(self.company_dic)
+        return self.company_dic
